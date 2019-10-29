@@ -1,108 +1,55 @@
-Getting Started with the Python Adapter in TestStand
-
+# Getting Started with the Python Adapter in TestStand
 
 1.  Introduction
-
 2.  Installation of Required Software
-
     1.  TestStand 2019 (32-bit and 64-bit)
-
     2.  Python (32-bit and 64-bit)
-
     3.  Configuring the Environment Variable
-
 3.  Running a Code Module Step
-
     1.  Calling a Python Function from TestStand
-
     2.  Passing Data Structures
-
         1.  Native TestStand Support
-
         2.  Object References
-
     3.  Loading and Calling Functions from a Python Class in TestStand
-
     4.  Edit Time vs Run Time Interpreters
-
 4.  Configuring Multiple Interpreters
-
     1.  Global, Per Execution and Per Thread
-
     2.  Interpreters at Run Time
-
     3.  Shared Resources Between Executions and Threads
 
-Introduction 
-=============
+## Introduction 
 
-TestStand 2019 introduced the Python Adapter which allows Python code to be
-called from TestStand sequences. TestStand has supported adapters for other
-language such as LabVIEW, .NET, C++, and CVI, and now Python allows developers
-additional flexibility in their test design. Python steps can be used for
-offloading data analysis and hardware control. Python modules for NI-DAQmx,
-NI-SCOPE, NI-FGEN, NI-DMM, NI-DCPower, NI-SWITCH, and NI-ModInst can be found at
-[NI Modular Instruments Python
-Documentation](https://nimi-python.readthedocs.io/en/master/).
+TestStand 2019 introduced the Python Adapter which allows Python code to be called from TestStand sequences. TestStand has supported adapters for other language such as LabVIEW, .NET, C++, and CVI, and now Python allows developers additional flexibility in their test design. Python steps can be used for offloading data analysis and hardware control. Python modules for NI-DAQmx, NI-SCOPE, NI-FGEN, NI-DMM, NI-DCPower, NI-SWITCH, and NI-ModInst can be found at [NI Modular Instruments Python Documentation](https://nimi-python.readthedocs.io/en/master/).
 
-Installation of Required Software
-=================================
+## Installation of Required Software
 
-TestStand
----------
+### TestStand
 
-The latest version of TestStand can be downloaded from our [TestStand Download
-Page](http://www.ni.com/en-us/support/downloads/software-products/download.teststand.html#305461).
-For Python Adapter support, TestStand 2019 or later will be required. Verify
-that you have a supported operating system, listed in the right-hand pane on the
-download page, for TestStand 2019. TestStand has both 32-bit and 64-bit
-versions. It is important to maintain the same bitness across the different
-software tools used in development. If you use particular bitness of TestStand,
-then you must use the same bitness of Python.
+The latest version of TestStand can be downloaded from our [TestStand Download Page](http://www.ni.com/en-us/support/downloads/software-products/download.teststand.html#305461). For Python Adapter support, TestStand 2019 or later will be required. Verify that you have a supported operating system, listed in the right-hand pane on the download page, for TestStand 2019. TestStand has both 32-bit and 64-bit versions. It is important to maintain the same bitness across the different software tools used in development. If you use particular bitness of TestStand, then you must use the same bitness of Python.
 
-Python
-------
+### Python
 
-Python can be installed from <https://www.python.org/downloads/>. TestStand 2019
-supports Python 2.7+ and 3.6+. Again, the bitness of the Python installation
-must match the bitness of your installed TestStand.
+Python can be installed from <https://www.python.org/downloads/>. TestStand 2019 supports Python 2.7+ and 3.6+. Again, the bitness of the Python installation must match the bitness of your installed TestStand.
 
-Configuring the Environment 
-----------------------------
+### Configuring the Environment 
 
-In order for TestStand to find the Python Interpreter to use, Python will need
-to be added to the PATH environment variable. Many installations of Python will
-automatically add their path to the PATH environment variable, and TestStand
-looks in some default locations. However, to ensure TestStand has access to
-Python, it is recommended the path be added. You can change the PATH environment
-variable on Windows 10 with the following steps:
+In order for TestStand to find the Python Interpreter to use, Python will need to be added to the PATH environment variable. Many installations of Python will automatically add their path to the PATH environment variable, and TestStand looks in some default locations. However, to ensure TestStand has access to Python, it is recommended the path be added. You can change the PATH environment variable on Windows 10 with the following steps:
 
 1.  Open **File Explorer**.
-
 2.  Right click on **This PC** and select **Properties**.
-
 3.  Click on **Advanced system settings**.
-
-4.  Make sure you are on the **Advanced** tab and click on **Environment
-    Variables**.
-
-5.  Select the **Path** variable under **User variables of \<username\>** and
-    click **Edit**.
-
+4.  Make sure you are on the **Advanced** tab and click on **Environment Variables**.
+5.  Select the **Path** variable under **User variables of \<username\>** and click **Edit**.
 6.  Click **New** to add additional environment variables. You should add paths
     to the Python Installation and the scripts folder.
 
-    An example of a properly configured PATH environment variable is provided
-    below for a Windows 10 machine with Python installed at the top of the C
-    drive. Paths to both the Python folder and the Scripts folder should be
-    included.
+An example of a properly configured PATH environment variable is provided below for a Windows 10 machine with Python installed at the top of the C drive. Paths to both the Python folder and the Scripts folder should be included.
 
-    ![](media/d736fe2cd2e3d6f2c25f9b47bc7cdee3.tiff)
+![Path Environment Variable](/Screenshots/PATH.PNG)
 
 Figure 1: Configured PATH Environment Variable
 
-You will need to restart TestStand and any TestStand tools for the Python
-Adapter to utilize the edited environment variable.
+You will need to restart TestStand and any TestStand tools for the Python Adapter to utilize the edited environment variable.
 
 Once your operating system’s environment is configured, you can configure the
 Python Adapter in TestStand. The Python Adapter Configuration window can be
