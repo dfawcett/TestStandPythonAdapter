@@ -55,215 +55,130 @@ Once your operating system’s environment is configured, you can configure the 
 
 <p align="center"><img src="/Screenshots/Python%20Adapter%20Configuration.png" /></p>
 
-<p align="center">Figure 2: Python Adapter Configuration</p">
+<p align="center">Figure 2: Python Adapter Configuration</p>
 
 ## Running a Code Module Step
 
-Calling a Python Function from TestStand
-----------------------------------------
+### Calling a Python Function from TestStand
 
-Python can be selected as the default for code modules using the Selected
-Adapter dropdown. Once an action step is added to a sequence, the adapter can
-also be selected in the **General** section of the **Properties** tab of **Step
-Settings**.
+Python can be selected as the default for code modules using the Selected Adapter dropdown. Once an action step is added to a sequence, the adapter can also be selected in the **General** section of the **Properties** tab of **Step Settings**.
 
-Any IDE or text editor can be used to develop Python functions to be called from
-TestStand. To show how a function can be called from TestStand, the following
-function will be used. The function simply returns whatever is passed into it.
+Any IDE or text editor can be used to develop Python functions to be called from TestStand. To show how a function can be called from TestStand, the following function will be used. The function simply returns whatever is passed into it.
 
+```python
 def hello_world(string_to_return):
+    return string_to_return
+```
 
-return string_to_return
+This function can be added to a Python action step within a sequence. Within the **Module** tab of the **Step Settings**, the script that contains this function, getting_started.py, is referenced. The **Operation Scope** is set to **Module** and the **Operation Type** is set to **Call Method**. The creation and use of a class will be covered later in this guide. When you select the function name, the function prototype is loaded into the **Step Settings**. Here TestStand loads **Return Value** and **string_to_return**. You can select how you want to pass arguments and store the return value of the function using the **Type** and **Value** fields.
 
-This function can be added to a Python action step within a sequence. Within the
-**Module** tab of the **Step Settings**, the script that contains this function,
-getting_started.py, is referenced. The **Operation Scope** is set to **Module**
-and the **Operation Type** is set to **Call Method**. The creation and use of a
-class will be covered later in this guide. When you select the function name,
-the function prototype is loaded into the **Step Settings**. Here TestStand
-loads **Return Value** and **string_to_return**. You can select how you want to
-pass arguments and store the return value of the function using the **Type** and
-**Value** fields.
+<p align="center"><img src="/Screenshots/StepSettings1.png" /></p>
 
-![](media/08ddcacc667f37e8263451b5da403f67.tiff)
-
-Figure 3: Step Settings Example for Calling a Python Method
+<p align="center">Figure 3: Step Settings Example for Calling a Python Method</p>
 
 When the step is run as configured, it will pass the string Hello World into the
 Python function and which will return the same string to be stored in
 Locals.MethodReturnVal.
 
-Passing Data Structures 
-------------------------
+### Passing Data Structures 
 
-### Native TestStand Support
 
-It is important to note that TestStand is strictly typed while Python is
-dynamically typed. TestStand supports several standard object types such as a
-string, numeric, or Boolean. The full list of types can be seen in the type
-dropdown to the right of the parameters for a Python step.
+#### Native TestStand Support
 
-![TestStand_Types.PNG](media/c37a41208d4a40465f1feb910b7389a8.png)
+It is important to note that TestStand is strictly typed while Python is dynamically typed. TestStand supports several standard object types such as a string, numeric, or Boolean. The full list of types can be seen in the type dropdown to the right of the parameters for a Python step.
 
-Figure 4: Types for Python Parameters
+<p align="center"><img src="/Screenshots/TestStandTypes.PNG" /></p>
 
-When passing these data types between Python scripts and TestStand sequences,
-care needs to be taken to insure proper type casting. TestStand offers the
-Dynamic type to help with this process. In the example above, the type that was
-being passed to and returned from TestStand was Dynamic. Strict types can be
-used if you are certain of the type being passed into and received from your
-Python module.
+<p align="center">Figure 4: Types for Python Parameters</p>
 
-### Object References
+When passing these data types between Python scripts and TestStand sequences, care needs to be taken to insure proper type casting. TestStand offers the Dynamic type to help with this process. In the example above, the type that was being passed to and returned from TestStand was Dynamic. Strict types can be used if you are certain of the type being passed into and received from your Python module.
+
+#### Object References
 
 More complex data structures can be stored in TestStand as object references and passed to Python functions. An example of this is provided below where the [date object](https://docs.python.org/2/library/datetime.html#date-objects) is returned to TestStand and stored as a Python object reference. This reference is passed into another function which returns the year data member of the date object. Below is the first function which returns a date object: 
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+```python
 def return_data_structure():
+    return date.today()
+```
 
-return date.today()
+<p align="center"><img src="/Screenshots/StepSettings2.png" /></p>
 
-![](media/1730fa3ca00702c9e81cb2f1e81f815d.tiff)
+<p align="center">Figure 5: Step Settings for Passing Data Structure to TestStand</p>
 
-Figure 5: Step Settings for Passing Data Structure to TestStand
-
-The variable Locals.DateInstance is watched during execution, you will see that
-the object reference is a Python Object.
+The variable Locals.DateInstance is watched during execution, you will see that the object reference is a Python Object.
 
 ![](media/219a0e9de30ef0111eebd503912571e0.tiff)
 
-Figure 6: Python Object in Watch Expression Pane During Run-Time
+<p align="center">Figure 6: Python Object in Watch Expression Pane During Run-Time</p>
 
-The second function which accepts the variable returned from the previous
-function as an argument is defined below.
+The second function which accepts the variable returned from the previous function as an argument is defined below.
 
+```python
 def accept_object_reference(today):
-
-return today.year
+    return today.year
+```
 
 ![](media/13a16ad06d3d1af8d8ccfa581952d1df.tiff)
 
-Figure 7: Passing Data Structure to Python Function
+<p align="center">Figure 7: Passing Data Structure to Python Function</p>
 
-The numeric that is returned and stored in Locals.ReturnYear is the year
-associated with the date object.
+The numeric that is returned and stored in Locals.ReturnYear is the year associated with the date object.
 
-Loading and Calling Functions from a Python Class in TestStand
---------------------------------------------------------------
+### Loading and Calling Functions from a Python Class in TestStand
 
 Classes can also be loaded into TestStand, and other steps can be used to get
 and set their data members and call their methods. For this guide, we will load
 the class HelloWorld and call a method within the class, hello_world.
 
+```python
 class HelloWorld:
 
-def \__init__(self):
-
-self.message = "Hello World Class"
+def __init__(self):
+    self.message = "Hello World Class"
 
 def hello_world(self):
+    return self.message
+```
 
-return self.message
-
-For this example, another step was created, and the step settings were
-configured with the same code module, getting_started.py. A class reference is
-created by using the **Operation Type**, **Create Class Instance**. The class
-instance is stored in the **Return Value** of the step. In the example below,
-the reference is stored in FileGlobals.HelloWorld.
+For this example, another step was created, and the step settings were configured with the same code module, getting_started.py. A class reference is created by using the **Operation Type**, **Create Class Instance**. The class instance is stored in the **Return Value** of the step. In the example below, the reference is stored in FileGlobals.HelloWorld.
 
 ![](media/5e83b6618c5cb4f7c3a71e2d347a266c.tiff)
 
-Figure 8: Step Settings Example for Creating a Class Reference
+<p align="center">Figure 8: Step Settings Example for Creating a Class Reference</p>
 
-Once the class reference is loaded into TestStand, it can be used in other
-Python steps. To use the class reference, the module is loaded again, the
-**Operation Scope** is set to **Class Instance**, and the **Class Instance** is
-obtained from the variable where it is stored, in this case
-FileGlobals.HelloWorld. The **Class Name** is set to the class that is being
-referenced, in this case it is **HelloWorld**. The **Operation Type** for the
-example below is **Call Method** and the **Function Name** being called is
-**hello_world**.
+Once the class reference is loaded into TestStand, it can be used in other Python steps. To use the class reference, the module is loaded again, the **Operation Scope** is set to **Class Instance**, and the **Class Instance** is obtained from the variable where it is stored, in this case FileGlobals.HelloWorld. The **Class Name** is set to the class that is being referenced, in this case it is **HelloWorld**. The **Operation Type** for the example below is **Call Method** and the **Function Name** being called is **hello_world**.
 
 ![](media/6fc4556706d7625d379927b1cb21c4dd.tiff)
 
-Figure 9: Step Settings for Calling a Class Method
+<p align="center">Figure 9: Step Settings for Calling a Class Method</p>
 
-When these steps are executed, a class reference is created and stored in
-TestStand. The class reference is then used to call the class method,
-hello_world. It is important to note that the class instance must be used in the
-same interpreter it was created in. Configuring the interpreter is covered in
-the section below on Configuring Multiple Interpreters.
+When these steps are executed, a class reference is created and stored in TestStand. The class reference is then used to call the class method, hello_world. It is important to note that the class instance must be used in the same interpreter it was created in. Configuring the interpreter is covered in the section below on Configuring Multiple Interpreters.
 
-Edit-Time vs Run-Time Interpreters
-----------------------------------
+### Edit-Time vs Run-Time Interpreters
 
-In order to populate the dropdown options for **Class Name** and **Function
-Name** and expose function and class prototypes, TestStand uses an edit-time
-interpreter to parse the code module. As such you should never have code outside
-import statements, class definitions, and function definitions. This will cause
-the interpreter to execute the code leading to undefined and unwanted behavior.
+In order to populate the dropdown options for **Class Name** and **Function Name** and expose function and class prototypes, TestStand uses an edit-time interpreter to parse the code module. As such you should never have code outside import statements, class definitions, and function definitions. This will cause the interpreter to execute the code leading to undefined and unwanted behavior.
 
-Configuring Multiple Interpreters
-=================================
+## Configuring Multiple Interpreters
 
-When a Python step accesses an interpreter, it grabs the [Global Interpreter
-Lock](https://docs.python.org/2/glossary.html#term-global-interpreter-lock) for
-that interpreter. This is a limitation of the Python interpreter to prevent it
-from being used simultaneously from multiple threads. This prevents other code
-modules from using the that interpreter and executing at the same time. This
-slows down test time and reduces the parallelism of your test. Parallel calls to
-the Python interpreter are serialized non-deterministically. To increase the
-parallelism of your test, you can configure multiple interpreters in a variety
-of ways.
+When a Python step accesses an interpreter, it grabs the [Global Interpreter Lock](https://docs.python.org/2/glossary.html#term-global-interpreter-lock) for that interpreter. This is a limitation of the Python interpreter to prevent it from being used simultaneously from multiple threads. This prevents other code modules from using the that interpreter and executing at the same time. This slows down test time and reduces the parallelism of your test. Parallel calls to the Python interpreter are serialized non-deterministically. To increase the parallelism of your test, you can configure multiple interpreters in a variety of ways.
 
-Global, Per Execution and Per Thread
-------------------------------------
+### Global, Per Execution and Per Thread
 
-The Python adapter can be configured within the Python Adapter Configuration
-window found via **Configure\>\>Adapters\>\>Configure (with Python Selected)**.
-For the Python interpreter to use these setting, there are three options to
-choose from: Global, Per Execution, and Per Thread. These settings change the
-scope of the default interpreter for Python steps. It is important to note that
-objects cannot be shared between Python interpreters.
+The Python adapter can be configured within the Python Adapter Configuration window found via **Configure\>\>Adapters\>\>Configure (with Python Selected)**. For the Python interpreter to use these setting, there are three options to choose from: Global, Per Execution, and Per Thread. These settings change the scope of the default interpreter for Python steps. It is important to note that objects cannot be shared between Python interpreters.
 
-Interpreters at Run-Time
-------------------------
+### Interpreters at Run-Time
 
-Additional interpreters can also be instantiated at run-time and can be used
-with a given class instance. This is done by selecting the Advanced Settings
-button in the top right of the **Module** tab in **Step Settings**.
+Additional interpreters can also be instantiated at run-time and can be used with a given class instance. This is done by selecting the Advanced Settings button in the top right of the **Module** tab in **Step Settings**.
 
 ![](media/a58cb678b583d9e90ac593506cd494a8.tiff)
 
-Figure 10: Configuring Interpreter Reference
+<p align="center">Figure 10: Configuring Interpreter Reference</p>
 
-The **Advanced Settings** window allows the user to configure the step to follow
-the adapter settings for a Python interpreter or to use a specified Python
-interpreter. Selecting **Object Reference** for the **Python Interpreter to
-use** option allows you to input an **Interpreter Reference** and to **Create
-Interpreter if it does not exist**. In the example above, the interpreter is
-referenced in FileGlobals.HelloWorldInterpreter. If a class is instantiated with
-an interpreter, that interpreter must be used for future steps with that class
-reference.
+The **Advanced Settings** window allows the user to configure the step to follow the adapter settings for a Python interpreter or to use a specified Python interpreter. Selecting **Object Reference** for the **Python Interpreter to use** option allows you to input an **Interpreter Reference** and to **Create Interpreter if it does not exist**. In the example above, the interpreter is referenced in FileGlobals.HelloWorldInterpreter. If a class is instantiated with an interpreter, that interpreter must be used for future steps with that class reference.
 
-Shared Resources Between Executions and Threads
------------------------------------------------
+### Shared Resources Between Executions and Threads
 
-If additional parallelism is needed when running a Batch or Parallel process
-model, the additional interpreters can be created using the methods mention
-above. However, two problems remain even with multiple interpreters. First,
-hardware and class references cannot be shared between interpreters making
-sharing between executions more difficult. Second, instantiating all hardware
-and class references in a single interpreter will also cause execution threads
-to wait for an interpreter to be released.
+If additional parallelism is needed when running a Batch or Parallel process model, the additional interpreters can be created using the methods mention above. However, two problems remain even with multiple interpreters. First, hardware and class references cannot be shared between interpreters making sharing between executions more difficult. Second, instantiating all hardware and class references in a single interpreter will also cause execution threads to wait for an interpreter to be released.
 
-As sequence complexity grows, it is recommended that an interpreter is created
-for each class to prevent interpreter locking. For example, consider a Batch
-model where each execution needs access to a class that uses an FGEN and Scope,
-a class that uses a SMU, and a class that uses a DMM. One recommended solution
-is to create class references and interpreters for each class that are
-accessible to each execution. This allows each execution to access the hardware
-when they are available. If multiple steps must be executing without giving up a
-hardware reference, [Synchronization Step
-Types](https://zone.ni.com/reference/en-XX/help/370052W-01/tsref/infotopics/sync_step_types/)
-can be used within TestStand.
+As sequence complexity grows, it is recommended that an interpreter is created for each class to prevent interpreter locking. For example, consider a Batch model where each execution needs access to a class that uses an FGEN and Scope, a class that uses a SMU, and a class that uses a DMM. One recommended solution is to create class references and interpreters for each class that are accessible to each execution. This allows each execution to access the hardware when they are available. If multiple steps must be executing without giving up a hardware reference, [Synchronization Step Types](https://zone.ni.com/reference/en-XX/help/370052W-01/tsref/infotopics/sync_step_types/) can be used within TestStand.
