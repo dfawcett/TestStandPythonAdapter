@@ -108,7 +108,7 @@ def return_data_structure():
 
 The variable Locals.DateInstance is watched during execution, you will see that the object reference is a Python Object.
 
-![](media/219a0e9de30ef0111eebd503912571e0.tiff)
+<p align="center"><img src="/Screenshots/WatchExpressionPane.png" /></p>
 
 <p align="center">Figure 6: Python Object in Watch Expression Pane During Run-Time</p>
 
@@ -119,7 +119,7 @@ def accept_object_reference(today):
     return today.year
 ```
 
-![](media/13a16ad06d3d1af8d8ccfa581952d1df.tiff)
+<p align="center"><img src="/Screenshots/StepSettings3.png" /></p>
 
 <p align="center">Figure 7: Passing Data Structure to Python Function</p>
 
@@ -143,13 +143,13 @@ def hello_world(self):
 
 For this example, another step was created, and the step settings were configured with the same code module, getting_started.py. A class reference is created by using the **Operation Type**, **Create Class Instance**. The class instance is stored in the **Return Value** of the step. In the example below, the reference is stored in FileGlobals.HelloWorld.
 
-![](media/5e83b6618c5cb4f7c3a71e2d347a266c.tiff)
+<p align="center"><img src="/Screenshots/StepSettings4.png" /></p>
 
 <p align="center">Figure 8: Step Settings Example for Creating a Class Reference</p>
 
 Once the class reference is loaded into TestStand, it can be used in other Python steps. To use the class reference, the module is loaded again, the **Operation Scope** is set to **Class Instance**, and the **Class Instance** is obtained from the variable where it is stored, in this case FileGlobals.HelloWorld. The **Class Name** is set to the class that is being referenced, in this case it is **HelloWorld**. The **Operation Type** for the example below is **Call Method** and the **Function Name** being called is **hello_world**.
 
-![](media/6fc4556706d7625d379927b1cb21c4dd.tiff)
+<p align="center"><img src="/Screenshots/StepSettings5.png" /></p>
 
 <p align="center">Figure 9: Step Settings for Calling a Class Method</p>
 
@@ -171,7 +171,7 @@ The Python adapter can be configured within the Python Adapter Configuration win
 
 Additional interpreters can also be instantiated at run-time and can be used with a given class instance. This is done by selecting the Advanced Settings button in the top right of the **Module** tab in **Step Settings**.
 
-![](media/a58cb678b583d9e90ac593506cd494a8.tiff)
+<p align="center"><img src="/Screenshots/ConfiguringInterpreter.png" /></p>
 
 <p align="center">Figure 10: Configuring Interpreter Reference</p>
 
