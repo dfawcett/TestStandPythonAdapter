@@ -45,26 +45,19 @@ In order for TestStand to find the Python Interpreter to use, Python will need t
 
 An example of a properly configured PATH environment variable is provided below for a Windows 10 machine with Python installed at the top of the C drive. Paths to both the Python folder and the Scripts folder should be included.
 
-![Path Environment Variable](/Screenshots/PATH.PNG)
+<p align="center"><img src="/Screenshots/PATH.png" /> </p>
 
-Figure 1: Configured PATH Environment Variable
+<p align="center">Figure 1: Configured PATH Environment Variable</p>
 
 You will need to restart TestStand and any TestStand tools for the Python Adapter to utilize the edited environment variable.
 
-Once your operating system’s environment is configured, you can configure the
-Python Adapter in TestStand. The Python Adapter Configuration window can be
-accessed via **Configure\>\>Adapters\>\>Configure (with Python Selected)**. Here
-the default interpreter and Python version can be set. The Python version is
-pulled from the interpreters configured in your PATH environment variable. For
-instance, if you have both Python 2.7 and Python 3.6, you will have those two
-options will be available.
+Once your operating system’s environment is configured, you can configure the Python Adapter in TestStand. The Python Adapter Configuration window can be accessed via **Configure\>\>Adapters\>\>Configure (with Python Selected)**. Here the default interpreter and Python version can be set. The Python version is pulled from the interpreters configured in your PATH environment variable. For instance, if you have both Python 2.7 and Python 3.6, you will have those two options will be available.
 
-![](media/09d83852ec73937d4784e854671af9b9.tiff)
+<p align="center"><img src="/Screenshots/Python%20Adapter%20Configuration.png" /></p>
 
-Figure 2: Python Adapter Configuration
+<p align="center">Figure 2: Python Adapter Configuration</p">
 
-Running a Code Module Step
-==========================
+## Running a Code Module Step
 
 Calling a Python Function from TestStand
 ----------------------------------------
